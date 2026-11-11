@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltRide — Switch to Electric</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg vr-nav sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#"><span class="bolt"><i class="bi bi-lightning-charge-fill"></i></span> VoltRide</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav2"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="nav2">
+        <ul class="navbar-nav ms-auto gap-lg-3 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#models">Models</a></li>
+          <li class="nav-item"><a class="nav-link" href="#calculator">Savings</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          <li class="nav-item"><a class="btn btn-volt" href="#calculator">Calculate savings</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-lg-6">
+          <p class="eyebrow">Electric mobility, simplified</p>
+          <h1 class="display-3 fw-bold">Charge up.<br>Drive <span class="highlight">smarter.</span></h1>
+          <p class="lead text-muted my-4">Compare electric scooters, bikes and cars. See exactly how much you'd save on fuel every month — and how much CO₂ you'd keep out of the air.</p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a href="#calculator" class="btn btn-volt btn-lg">Try the calculator</a>
+            <a href="#models" class="btn btn-outline-dark btn-lg">Browse models</a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="battery-wrap">
+            <div class="battery">
+              <div class="battery-level" id="batteryLevel"></div>
+              <span class="battery-text" id="batteryText">0%</span>
+            </div>
+            <div class="battery-cap"></div>
+          </div>
+          <p class="text-muted mt-3 small"><i class="bi bi-plug-fill"></i> Fast charging demo</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Models -->
+  <section id="models" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="eyebrow">Pick your ride</p>
+        <h2 class="fw-bold">Popular electric categories</h2>
+      </div>
+      <ul class="nav nav-pills justify-content-center mb-4 vr-pills" id="modelTabs">
+        <li class="nav-item"><button class="nav-link active" data-type="scooter">Scooters</button></li>
+        <li class="nav-item"><button class="nav-link" data-type="bike">Motorbikes</button></li>
+        <li class="nav-item"><button class="nav-link" data-type="car">Cars</button></li>
+      </ul>
+      <div class="row g-4" id="modelGrid"></div>
+      <p class="text-center text-muted small mt-3">Models shown are illustrative examples, not real products.</p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section id="calculator" class="py-5 calc-section">
+    <div class="container">
+      <div class="row g-4 g-lg-5 align-items-center">
+        <div class="col-lg-6">
+          <p class="eyebrow text-volt">Savings calculator</p>
+          <h2 class="fw-bold text-white mb-4">How much would you save?</h2>
+          <div class="calc-field">
+            <label>Daily distance <span id="kmVal">40</span> km</label>
+            <input type="range" class="form-range" id="km" min="5" max="200" value="40">
+          </div>
+          <div class="calc-field">
+            <label>Petrol price ₹<span id="petrolVal">105</span>/litre</label>
+            <input type="range" class="form-range" id="petrol" min="80" max="130" value="105">
+          </div>
+          <div class="calc-field">
+            <label>Your vehicle's mileage <span id="mileageVal">45</span> km/litre</label>
+            <input type="range" class="form-range" id="mileage" min="8" max="70" value="45">
+          </div>
+          <div class="calc-field">
+            <label>Electricity rate ₹<span id="elecVal">8</span>/unit</label>
+            <input type="range" class="form-range" id="elec" min="3" max="20" value="8">
+          </div>
+          <div class="calc-field">
+            <label>EV efficiency <span id="effVal">30</span> km/unit (kWh)</label>
+            <input type="range" class="form-range" id="eff" min="5" max="60" value="30">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="result-card">
+            <p class="text-muted mb-1">You could save every month</p>
+            <h3 class="savings" id="savings">₹0</h3>
+            <div class="row text-center mt-4 g-3">
+              <div class="col-6"><div class="mini"><small>Petrol cost / month</small><strong id="petrolCost">₹0</strong></div></div>
+              <div class="col-6"><div class="mini"><small>EV cost / month</small><strong id="evCost">₹0</strong></div></div>
+              <div class="col-6"><div class="mini"><small>Yearly savings</small><strong id="yearly">₹0</strong></div></div>
+              <div class="col-6"><div class="mini"><small>CO₂ avoided / year*</small><strong id="co2">0 kg</strong></div></div>
+            </div>
+            <p class="small text-muted mt-3 mb-0">*Rough estimate: ~2.3 kg CO₂ per litre of petrol, minus grid emissions for charging. Based on 30 days/month.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4"><div class="feature"><i class="bi bi-geo-alt-fill"></i><h5>Charger finder</h5><p class="text-muted">Locate public chargers along your route and plan stops.</p></div></div>
+        <div class="col-md-4"><div class="feature"><i class="bi bi-shield-check"></i><h5>Battery health tips</h5><p class="text-muted">Keep charge between 20–80% for daily use to extend battery life.</p></div></div>
+        <div class="col-md-4"><div class="feature"><i class="bi bi-cash-coin"></i><h5>Lower running costs</h5><p class="text-muted">Fewer moving parts means fewer oil changes and lower service bills.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-5 bg-light-volt">
+    <div class="container" style="max-width:820px">
+      <h2 class="fw-bold text-center mb-4">Questions, answered</h2>
+      <div class="accordion vr-accordion" id="faqAcc">
+        <div class="accordion-item">
+          <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#f1">How long does charging take?</button></h2>
+          <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc"><div class="accordion-body">It depends on battery size and charger power. Home charging overnight is common for scooters and cars; DC fast chargers can add a large chunk of range in under an hour.</div></div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f2">Can I charge at home?</button></h2>
+          <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Most two-wheelers charge from a regular socket. Cars usually benefit from a dedicated wall charger installed by an electrician.</div></div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f3">Are EVs really greener?</button></h2>
+          <div id="f3" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">They produce zero tailpipe emissions. Total impact depends on how your electricity is generated — the cleaner the grid (or your rooftop solar), the bigger the benefit.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4 text-center">
+    <small>© 2026 VoltRide · Demo website built with Bootstrap 5</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
